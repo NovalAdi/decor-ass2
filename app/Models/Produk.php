@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Produk extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'nama',
         'deskripsi',
@@ -13,6 +16,12 @@ class Produk extends Model
         'stok',
         'rating',
     ];
+
+    public function gambarCover()
+    {
+        // Asumsi Anda ingin gambar pertama berdasarkan id/urutan pembuatan
+        return $this->hasOne(GambarProduk::class);
+    }
 
     public function gambarProduks()
     {
