@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <div class="bg-gray-50 mt-24 mb-24">
+    <div class="mt-24 mb-24">
 
         <form action="{{ route('checkout.show') }}" method="POST" class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             @csrf

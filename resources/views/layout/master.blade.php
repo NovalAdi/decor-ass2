@@ -8,6 +8,13 @@
     <title>Decor</title>
     <script src="https://kit.fontawesome.com/42b1412344.js" crossorigin="anonymous"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Custom Color Theme (Bronze/Brown) */
+        .bg-decor { background-color: #B47B49; }
+        .bg-decor:hover { background-color: #986538; }
+        .text-decor { color: #B47B49; }
+        .border-decor { border-color: #B47B49; }
+    </style>
     @yield('add-css')
 </head>
 

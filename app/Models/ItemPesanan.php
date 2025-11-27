@@ -9,8 +9,7 @@ class ItemPesanan extends Model
     protected $fillable = [
         'pesanan_id',
         'produk_id',
-        'jumlah',
-        'harga_saat_pemesanan',
+        'quantity',
     ];
 
     public function pesanan()

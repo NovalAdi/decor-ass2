@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('total_harga', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('menunggu pembayaran');
             $table->dateTime('tgl_pesan');
-            $table->string('alamat_pengiriman');
+            $table->string('alamat');
             $table->string('jenis_pembayaran');
             $table->string('jenis_pengiriman');
-            $table->text('note');
             $table->timestamps();
         });
     }

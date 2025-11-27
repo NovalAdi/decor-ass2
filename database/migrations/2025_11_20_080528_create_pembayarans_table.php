@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pesanan_id')->constrained('pesanans')->onDelete('cascade');
-            $table->string('tipe');
-            $table->dateTime('tgl_pembayaran');
-            $table->text('note')->nullable();
+            $table->dateTime('tgl_pembayaran')->default(now());
             $table->timestamps();
         });
     }

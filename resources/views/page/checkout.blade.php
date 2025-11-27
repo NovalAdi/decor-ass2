@@ -5,7 +5,7 @@
     {{-- Kontainer utama checkout --}}
     <div class="min-h-screen bg-gray-50 py-10">
 
-        <form action="" method="POST">
+        <form action="{{ route('checkout.process') }}" method="POST">
             @csrf
 
             {{-- Container utama yang membagi layout menjadi dua kolom besar untuk desktop --}}
@@ -62,6 +62,7 @@
                                         <span class="font-semibold text-gray-900 flex-shrink-0 text-right">
                                             Rp{{ number_format($data['quantity'] * $data['harga'], 0, ',', '.') }}
                                         </span>
+                                        <input type="hidden" name="products[]" value="{{ $data['id'] }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -192,6 +193,7 @@
                                     <span class="text-[#B5733A]" id="grand-total-display">
                                         Rp{{ number_format($totalHargaCart, 0, ',', '.') }}
                                     </span>
+                                    <input type="hidden" name="total_harga" value="{{ $totalHargaCart }}">
                                 </div>
                             </div>
 

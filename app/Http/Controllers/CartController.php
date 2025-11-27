@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\ItemPesanan;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +44,7 @@ class CartController extends Controller
         $selectedIds = $request->input('products', []);
 
         if (empty($selectedIds)) {
-            return redirect()->route('cart.index')->with('error', 'Tidak ada produk yang dipilih.');
+            return redirect()->route('cart.index');
         }
 
         $cartItems = Cart::whereIn('id', $selectedIds)
@@ -65,6 +67,33 @@ class CartController extends Controller
         $alamats = Auth::user()->alamats;
 
         return view('page.checkout', compact('cartItems', 'totalHargaCart', 'totalItem', 'alamats'));
+    }
+
+    public function checkout(Request $request)
+    {
+        $pesanan = Pesanan::create([
+            'user_id' => Auth::id(),
+            'total_harga' => $request->total_harga,
+            'status' => 'menunggu pembayaran',
+            'tgl_pesan' => now(),
+            'alamat' => "",
+            'jenis_pembayaran' => $request->payment,
+            'jenis_pengiriman' => $request->shipping,
+        ]);
+
+        foreach ($request->input('products', []) as $productId) {
+            $cart = Cart::where('id', $productId)->first();
+
+            ItemPesanan::create([
+                'pesanan_id' => $pesanan->id,
+                'produk_id' => $cart->produk_id,
+                'quantity' => $cart->quantity,
+            ]);
+
+            Cart::where('id', $productId)->delete();
+        }
+
+        return redirect()->route('pembayaran.show', $pesanan->id);
     }
 
     /**

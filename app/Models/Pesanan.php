@@ -11,10 +11,9 @@ class Pesanan extends Model
         'status',
         'total_harga',
         'tgl_pesan',
-        'alamat_pengiriman',
+        'alamat',
         'jenis_pembayaran',
         'jenis_pengiriman',
-        'note',
     ];
 
     public function user()
