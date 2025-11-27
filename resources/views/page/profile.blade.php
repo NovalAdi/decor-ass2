@@ -1,30 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Pengguna</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-    <style>
-        .btn-yellow {
-            background-color: #b5733a;
-            color: white;
-        }
-
-        .btn-yellow:hover {
-            background-color: #fbbf24;
-        }
-    </style>
-</head>
-
-<body class="bg-gray-50 min-h-screen p-8 m-10">
+@section('content')
+<div class="bg-gray-50 py-24">
 
     <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-6 sm:p-8">
 
         {{-- Header Selamat Datang --}}
         <div class="flex items-center p-4 bg-white border-b border-gray-200 rounded-t-lg mb-6">
-            <img src="{{ $user->gambar ? asset('storage/' . $user->gambar) : 'https://i.pravatar.cc/150?u=' . $user->email }}"
+            <img src="{{ $user->gambar ? asset('storage/' . $user->gambar) : asset('img/default_pp.png') }}"
                 alt="Avatar" class="w-12 h-12 rounded-full mr-4 object-cover">
             <div>
                 <h1 class="text-xl font-semibold text-gray-800">Halo, {{ $user->name }}!</h1>
@@ -75,7 +58,7 @@
             <div class="flex space-x-4">
                 {{-- Tombol Alamat Pengiriman --}}
                 <a href="{{ route('alamat.index') }}"
-                    class="flex items-center btn-yellow py-3 px-6 rounded-full font-medium shadow-md transition duration-200 hover:shadow-lg">
+                    class="flex text-white items-center bg-decor py-3 px-6 rounded-full font-medium shadow-md transition duration-200 hover:shadow-lg">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -87,7 +70,7 @@
 
                 {{-- Tombol Riwayat Pesanan --}}
                 <a href="{{ route("pesanan.index") }}"
-                    class="flex items-center btn-yellow py-3 px-6 rounded-full font-medium shadow-md transition duration-200 hover:shadow-lg">
+                    class="flex items-center bg-decor text-white py-3 px-6 rounded-full font-medium shadow-md transition duration-200 hover:shadow-lg">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -100,6 +83,5 @@
 
     </div>
 
-</body>
-
-</html>
+</div>
+@endsection

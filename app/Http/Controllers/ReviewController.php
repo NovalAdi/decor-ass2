@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GambarReview;
+use App\Models\Produk;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -28,15 +31,35 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $review = Review::create([
+            'produk_id' => $request->input('id_produk'),
+            'user_id' => Auth::id(),
+            'review' => $request->input('review'),
+            'rating' => $request->input('rating'),
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $gambar) {
+                $path = $gambar->store('reviews', 'public');
+                GambarReview::create([
+                    'review_id' => $review->id,
+                    'gambar' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->route('home')->with('success', 'Review submitted successfully!');
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(Review $review)
+    public function show($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        return view('page.review', compact('produk'));
     }
 
     /**

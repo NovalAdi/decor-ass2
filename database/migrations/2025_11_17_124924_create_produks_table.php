@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama');
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
-            $table->double('rating', 2, 1)->default(0.0);
             $table->timestamps();
         });
     }

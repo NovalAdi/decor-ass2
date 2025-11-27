@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -41,6 +42,13 @@ class ProfileController extends Controller
 
         // upload foto jika ada
         if ($request->hasFile('gambar')) {
+
+            // hapus foto lama (kalau ada)
+            if ($user->gambar && Storage::disk('public')->exists($user->gambar)) {
+                Storage::disk('public')->delete($user->gambar);
+            }
+
+            // simpan foto baru
             $file = $request->file('gambar')->store('profiles', 'public');
             $user->gambar = $file;
         }

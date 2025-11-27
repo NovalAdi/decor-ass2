@@ -145,7 +145,7 @@
                             </div>
                             <div class="flex gap-2 items-center">
                                 <img class="w-[15px] h-[15px]" src="{{ asset('img/star.png') }}" alt="">
-                                <p>{{ $produk['rating'] }} | {{ $produk['review'] ?? 0 }} reviews</p>
+                                <p>{{ round($produk->reviews->avg('rating'), 1) }} | {{ $produk->reviews->count() ?? 0 }} reviews</p>
                             </div>
                         </div>
                     </a>

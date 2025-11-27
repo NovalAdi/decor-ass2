@@ -20,7 +20,7 @@ class AuthController extends Controller
             $credentials = $request->only('name', 'password');
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->route('home');
+                return redirect()->route('admin.produk.index');
             }
             return back()->withErrors([
                 'name' => $admin->name,

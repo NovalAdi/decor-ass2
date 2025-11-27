@@ -10,10 +10,11 @@ class StatusPesananController extends Controller
 {
     public function index(Request $request)
     {
-        $status = $request->status ?? 'menunggu pembayaran';   
+        $status = $request->status ?? 'menunggu pembayaran';
 
         $pesanans = Pesanan::where('user_id', Auth::id())
             ->where('status', $status)
+            ->with('itemPesanans.produk')
             ->orderBy('tgl_pesan', 'DESC')
             ->get();
 

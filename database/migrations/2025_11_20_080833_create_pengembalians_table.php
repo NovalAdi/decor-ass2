@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

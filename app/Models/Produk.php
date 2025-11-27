@@ -30,7 +30,7 @@ class Produk extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'produk_tag');
+        return $this->belongsToMany(Tag::class, 'produk_tag', 'produk_id', 'tag_id');
     }
 
     public function reviews()

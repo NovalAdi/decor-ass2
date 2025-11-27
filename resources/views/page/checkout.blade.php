@@ -20,7 +20,7 @@
                             <h2 class="text-2xl font-bold text-gray-900 mb-5 flex items-center gap-3">
                                 <span class="text-[#B5733A]">📦</span> Shipping Address
                             </h2>
-                            <a href="" class="text-[#B5733A] underline">Add new Address</a>
+                            <a href="{{ route('alamat.create') }}" class="text-[#B5733A] underline">Add new Address</a>
                         </div>
                         <select name="alamat" id="shipping_address"
                             class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700

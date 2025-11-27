@@ -2,64 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GambarPengembalian;
 use App\Models\Pengembalian;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class PengembalianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $pengembalian = Pengembalian::create([
+            'pesanan_id' => $request->input('pesanan_id'),
+            'tipe' => $request->input('tipe'),
+            'judul' => $request->input('judul'),
+            'deskripsi' => $request->input('deskripsi'),
+        ]);
+
+        Pesanan::where('id', $request->input('pesanan_id'))->update(['status' => 'pengembalian']);
+
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $gambar) {
+                $path = $gambar->store('pengembalian', 'public');
+                GambarPengembalian::create([
+                    'pengembalian_id' => $pengembalian->id,
+                    'gambar' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->route('home');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pengembalian $pengembalian)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pengembalian $pengembalian)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pengembalian $pengembalian)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pengembalian $pengembalian)
-    {
-        //
+        return view('page.pengembalian', compact('id'));
     }
 }

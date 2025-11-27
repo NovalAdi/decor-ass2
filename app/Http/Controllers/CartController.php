@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $cartItems = Cart::where('user_id', Auth::user()->id)
@@ -36,9 +33,6 @@ class CartController extends Controller
         return view('page.cart', compact('cartItems', 'totalHargaCart'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function showCheckout(Request $request)
     {
         $selectedIds = $request->input('products', []);
@@ -76,7 +70,7 @@ class CartController extends Controller
             'total_harga' => $request->total_harga,
             'status' => 'menunggu pembayaran',
             'tgl_pesan' => now(),
-            'alamat' => "",
+            'alamat' => $request->alamat,
             'jenis_pembayaran' => $request->payment,
             'jenis_pengiriman' => $request->shipping,
         ]);
@@ -96,9 +90,6 @@ class CartController extends Controller
         return redirect()->route('pembayaran.show', $pesanan->id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, $id)
     {
         $cartItem = Cart::firstOrNew([
@@ -112,25 +103,6 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update($type, $id)
     {
         $cartItem = Cart::find($id);
@@ -147,9 +119,6 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $cartItem = Cart::find($id);

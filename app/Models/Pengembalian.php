@@ -11,7 +11,6 @@ class Pengembalian extends Model
         'tipe',
         'judul',
         'deskripsi',
-        'status',
     ];
 
     public function pesanan()

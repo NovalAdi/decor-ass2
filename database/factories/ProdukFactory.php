@@ -20,7 +20,6 @@ class ProdukFactory extends Factory
             'nama' => $this->faker->words(3, true),
             'deskripsi' => $this->faker->paragraph(3),
             'harga' => $this->faker->randomFloat(2, 1000000, 5000000),
-            'rating' => $this->faker->randomFloat(1, 1.0, 5.0),
         ];
     }
 }

@@ -1,51 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Alamat Baru</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn-submit {
-            background-color: #d97706;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            font-weight: 500;
-            transition: background-color 0.15s;
-        }
-
-        .btn-submit:hover {
-            background-color: #b45309;
-        }
-
-        .btn-back {
-            background-color: #6b7280;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            font-weight: 500;
-            transition: background-color 0.15s;
-        }
-
-        .btn-back:hover {
-            background-color: #4b5563;
-        }
-    </style>
-</head>
-
-<body class="bg-gray-50 min-h-screen p-8">
+@section('content')
+<div class="bg-gray-50 py-24">
 
     <div class="max-w-3xl mx-auto bg-white rounded-lg p-6 sm:p-8 shadow">
 
@@ -75,6 +31,5 @@
 
     </div>
 
-</body>
-
-</html>
+</div>
+@endsection

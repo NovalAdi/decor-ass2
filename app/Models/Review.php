@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'produk_id',
         'rating',
-        'komentar',
+        'review',
     ];
 
     public function user()
@@ -21,5 +23,10 @@ class Review extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class);
+    }
+
+    public function gambarReviews()
+    {
+        return $this->hasMany(GambarReview::class);
     }
 }
