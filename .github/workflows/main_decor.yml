@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: php-app
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -60,15 +60,12 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1D7D08B39767403E8A7481B45BBBC13D }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_15EED2D2154240E3B7B167C6AB0613A9 }}
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
         with:
           app-name: 'decor'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_... }}
+          slot-name: 'Production'
+          package: .
 
-      - name: Run Migrations
-        run: |
-          curl -X POST https://${{ secrets.AZURE_WEBAPP_NAME }}.scm.azurewebsites.net/api/command -u "${{ secrets.AZURE_WEBAPP_PUBLISH_USER }}:${{ secrets.AZURE_WEBAPP_PUBLISH_PASSWORD }}" -d '{"command":"php artisan migrate --force","dir":"site\\wwwroot"}'
-
-
+          
