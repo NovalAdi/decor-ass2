@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\api\AuthApiController;
 use App\Http\Controllers\Api\CartApiController;
-use App\Http\Controllers\api\HomeController;
-use App\Http\Controllers\api\ReviewApiController;
+use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\ReviewApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
