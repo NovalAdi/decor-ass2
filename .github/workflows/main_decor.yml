@@ -29,10 +29,11 @@ jobs:
         with:
           files: 'composer.json'
 
-      - name: Run composer install if composer.json exists
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress --no-scripts
+      - name: Run composer install
+        run: composer install --no-dev --optimize-autoloader --no-scripts
 
+      - name: Run Database Migrations
+        run: php artisan migrate --force
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -52,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: php-app
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -68,8 +69,4 @@ jobs:
           slot-name: 'Production'
           package: .
 
-      - name: Run Migrations
-        run: |
-          curl -X POST https://${{ secrets.AZURE_WEBAPP_NAME }}.scm.azurewebsites.net/api/command -u "${{ secrets.AZURE_WEBAPP_PUBLISH_USER }}:${{ secrets.AZURE_WEBAPP_PUBLISH_PASSWORD }}" -d '{"command":"php artisan migrate --force","dir":"site\\wwwroot"}'
-
-
+          
