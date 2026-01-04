@@ -40,6 +40,9 @@ jobs:
           name: php-app
           path: .
 
+      - name: Run Migrations
+        run: php artisan migrate --force
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -52,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: php-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -68,4 +71,4 @@ jobs:
           slot-name: 'Production'
           package: .
 
-          
+
