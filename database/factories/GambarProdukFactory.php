@@ -16,10 +16,10 @@ class GambarProdukFactory extends Factory
      */
     public function definition(): array
     {
-        $seed = $this->faker->numberBetween(1000, 1100);
+        $id = $this->faker->numberBetween(1, 1000);
 
         return [
-            'gambar' => 'https://picsum.photos/seed/' . $seed . '/600/400',
+            'gambar' => "https://picsum.photos/id/$id/600/400.jpg",
         ];
     }
 }

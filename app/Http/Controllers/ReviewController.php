@@ -26,14 +26,10 @@ class ReviewController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
-
         $review = Review::create([
-            'produk_id' => $request->input('id_produk'),
+            'produk_id' => $id,
             'user_id' => Auth::id(),
             'review' => $request->input('review'),
             'rating' => $request->input('rating'),
@@ -41,15 +37,14 @@ class ReviewController extends Controller
 
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $gambar) {
-                $path = $gambar->store('reviews', 'public');
+                $path = $gambar->store('review', 'public');
                 GambarReview::create([
                     'review_id' => $review->id,
                     'gambar' => $path,
                 ]);
             }
         }
-
-        return redirect()->route('home')->with('success', 'Review submitted successfully!');
+        return redirect()->route('home');
     }
 
 

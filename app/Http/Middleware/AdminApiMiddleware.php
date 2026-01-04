@@ -2,10 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\AuthController;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -15,14 +13,16 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
-            return $next($request);
+        $user = $request->user();
+
+        if (!$user || !$user->tokenCan('admin')) {
+            return response()->json([
+                'message' => 'Forbidden. Admin only.'
+            ], 403);
         }
 
-        AuthController::logout();
-
-        return redirect('/login');
+        return $next($request);
     }
 }
