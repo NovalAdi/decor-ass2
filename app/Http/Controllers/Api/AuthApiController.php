@@ -13,7 +13,6 @@ class AuthApiController extends Controller
     {
         $credentials = $request->only('name', 'password');
 
-        // ADMIN LOGIN
         $admin = User::where('name', $request->name)
             ->where('is_admin', 1)
             ->first();
