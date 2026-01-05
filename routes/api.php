@@ -5,9 +5,10 @@ use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CartApiController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PesananApiController;
+use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\ProfileApiController;
 use App\Http\Controllers\Api\ReviewApiController;
-use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\Api\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
