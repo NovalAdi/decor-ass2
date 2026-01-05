@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AlamatApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CartApiController;
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PesananApiController;
 use App\Http\Controllers\Api\ProdukController;
@@ -28,7 +29,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/cart/{id}', [CartApiController::class, 'update']);
     Route::delete('/cart/{id}', [CartApiController::class, 'destroy']);
 
-    Route::post('/checkout', [CartApiController::class, 'checkout']);
+    Route::post('/show/checkout', [CheckoutController::class, 'showCheckout']);
+    Route::post('/checkout/process', [CheckoutController::class, 'checkout']);
+    Route::post('/payment', [CheckoutController::class, 'store']);
 
     Route::get('/review', [ReviewApiController::class, 'index']);
     Route::get('/review/{id}', [ReviewApiController::class, 'show']);

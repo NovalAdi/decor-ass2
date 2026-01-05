@@ -87,34 +87,4 @@ class CartApiController extends Controller
             'message' => 'Item berhasil dihapus'
         ]);
     }
-
-    // 5️⃣ CHECKOUT → CREATE PESANAN
-    public function checkout(Request $request)
-    {
-        $pesanan = Pesanan::create([
-            'user_id' => Auth::id(),
-            'total_harga' => $request->total_harga,
-            'status' => 'menunggu pembayaran',
-            'tgl_pesan' => now(),
-            'jenis_pembayaran' => $request->payment,
-            'jenis_pengiriman' => $request->shipping,
-        ]);
-
-        foreach ($request->products as $cartId) {
-            $cart = Cart::find($cartId);
-
-            ItemPesanan::create([
-                'pesanan_id' => $pesanan->id,
-                'produk_id' => $cart->produk_id,
-                'quantity' => $cart->quantity,
-            ]);
-
-            $cart->delete();
-        }
-
-        return response()->json([
-            'message' => 'Pesanan berhasil dibuat',
-            'pesanan' => $pesanan
-        ], 201);
-    }
 }
