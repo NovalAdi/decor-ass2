@@ -47,6 +47,7 @@ class HomeController extends Controller
         $produk->gambar = $produk->gambarProduks->first()->gambar ?? null;
 
         unset($produk->reviews_avg_rating);
+        unset($produk->gambarProduks);
 
         return response()->json([
             'status' => true,
