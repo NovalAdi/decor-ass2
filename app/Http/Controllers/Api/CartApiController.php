@@ -25,6 +25,7 @@ class CartApiController extends Controller
                     'harga' => $item->produk->harga,
                     'quantity' => $item->quantity,
                     'total_harga' => $item->produk->harga * $item->quantity,
+                    'gambar' => $item->produk->gambarProduks->first()->gambar ?? null,
                 ];
             });
 
