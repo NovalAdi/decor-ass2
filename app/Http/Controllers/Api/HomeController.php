@@ -29,26 +29,29 @@ class HomeController extends Controller
 
     public function detail($id)
     {
-        $produk = Produk::with('tags', ['gambarProduks:id,produk_id,gambar'])
+        $produk = Produk::with([
+            'tags',
+            'gambarProduks:id,produk_id,gambar'
+        ])
             ->withAvg('reviews', 'rating')
             ->find($id);
 
-        $produk->rating = round($produk->reviews_avg_rating ?? 0, 1);
-        $produk->gambar = $produk->gambarProduks->first()->gambar ?? null;
-        unset($produk->reviews_avg_rating);
-
-
-        if ($produk) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Product details retrieved successfully',
-                'data' => $produk
-            ]);
-        } else {
+        if (!$produk) {
             return response()->json([
                 'status' => false,
                 'message' => 'Product not found'
             ], 404);
         }
+
+        $produk->rating = round($produk->reviews_avg_rating ?? 0, 1);
+        $produk->gambar = $produk->gambarProduks->first()->gambar ?? null;
+
+        unset($produk->reviews_avg_rating);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product details retrieved successfully',
+            'data' => $produk
+        ]);
     }
 }
