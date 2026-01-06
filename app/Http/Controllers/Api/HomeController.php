@@ -29,11 +29,12 @@ class HomeController extends Controller
 
     public function detail($id)
     {
-        $produk = Produk::with('tags')
+        $produk = Produk::with('tags', ['gambarProduks:id,produk_id,gambar'])
             ->withAvg('reviews', 'rating')
             ->find($id);
 
         $produk->rating = round($produk->reviews_avg_rating ?? 0, 1);
+        $produk->gambar = $produk->gambarProduks->first()->gambar ?? null;
         unset($produk->reviews_avg_rating);
 
 
