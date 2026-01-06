@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function detail($id)
     {
         $produk = Produk::with([
-            'tags',
+            'tags:id,nama',
             'gambarProduks:id,produk_id,gambar'
         ])
             ->withAvg('reviews', 'rating')
