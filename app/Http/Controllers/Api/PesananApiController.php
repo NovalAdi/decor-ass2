@@ -15,14 +15,12 @@ class PesananApiController extends Controller
         $status = $request->only('status')['status'] ?? 'menunggu pembayaran';
 
         $pesanans = Pesanan::where('user_id', Auth::user()->id)
-             ->where('status', $status)
             ->with('itemPesanans.produk')
             ->orderBy('tgl_pesan', 'DESC')
             ->get();
 
         return response()->json([
             'success' => true,
-            'status' => $status,
             'data' => $pesanans
         ]);
     }
